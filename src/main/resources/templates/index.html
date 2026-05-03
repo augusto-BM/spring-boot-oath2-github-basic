@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot OAuth2 GitHub</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 60px auto; text-align: center; }
+        a.btn { display: inline-block; padding: 10px 20px; background: #24292e; color: #fff;
+                border-radius: 6px; text-decoration: none; font-size: 16px; }
+        a.btn:hover { background: #444d56; }
+    </style>
+</head>
+<body>
+    <h1>Welcome</h1>
+    <p>This application uses <strong>GitHub OAuth2</strong> for authentication.</p>
+
+    <div sec:authorize="isAuthenticated()">
+        <p>You are already logged in. <a th:href="@{/user}">Go to your profile</a>.</p>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div sec:authorize="isAnonymous()">
+        <a class="btn" th:href="@{/oauth2/authorization/github}">Login with GitHub</a>
+    </div>
+</body>
+</html>
